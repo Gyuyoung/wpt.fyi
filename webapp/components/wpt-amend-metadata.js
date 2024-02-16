@@ -303,7 +303,7 @@ class AmendMetadata extends LoadingState(PathInfo(ProductInfo(PolymerElement))) 
       'servo',
       'wktr',
       'webkitgtk',
-      'openharmony',
+      'nweb',
     ].includes(product);
   }
 
@@ -315,7 +315,7 @@ class AmendMetadata extends LoadingState(PathInfo(ProductInfo(PolymerElement))) 
       testName = testName.replace(/((\/\*)?$)/, '');
     }
 
-    if (product === 'chrome' || product === 'chromium' || product === 'edge') {
+    if (product === 'chrome' || product === 'chromium' || product === 'edge' || product === 'nweb') {
       return `https://bugs.chromium.org/p/chromium/issues/list?q="${testName}"`;
     }
 
@@ -331,7 +331,7 @@ class AmendMetadata extends LoadingState(PathInfo(ProductInfo(PolymerElement))) 
       return `https://github.com/nodejs/node/issues?q="${testName}"`;
     }
 
-    if (product === 'safari' || product === 'wktr' || product === 'webkitgtk' || product === 'openharmony') {
+    if (product === 'safari' || product === 'wktr' || product === 'webkitgtk') {
       return `https://bugs.webkit.org/buglist.cgi?quicksearch="${testName}"`;
     }
 

@@ -166,7 +166,7 @@ class WPTResults extends AmendMetadataMixin(Pluralizer(WPTColors(WPTFlags(PathIn
       .pointer {
         cursor: help;
       }
-      
+
       .channel-area {
         display: flex;
         max-width: fit-content;
@@ -615,6 +615,7 @@ class WPTResults extends AmendMetadataMixin(Pluralizer(WPTColors(WPTFlags(PathIn
       return;
     }
 
+    console.log(`<< wpt-results.js : fetchResult!!!!`);
     let url = new URL('/api/search', window.location);
     let fetchOpts;
 

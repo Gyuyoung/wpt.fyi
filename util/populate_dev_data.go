@@ -116,15 +116,30 @@ func main() {
 	safariExp.Labels = []string{"safari", shared.ExperimentalLabel}
 	safariExp.ResultsURL = strings.Replace(safari.ResultsURL, "[stable]", "[experimental]", -1)
 
+	nweb := chrome
+	nweb.BrowserName = "nweb"
+	nweb.BrowserVersion = "Beta"
+	nweb.OSName = "openharmony"
+	nweb.OSName = "3.2.3"
+	nweb.ResultsURL = fmt.Sprintf(summaryURLFmtString, *localHost, staticRunSHA[:10], "nweb[stable]-summary_v2.json.gz")
+	nweb.Labels = []string{"nweb", shared.StableLabel}
+	nwebExp := nweb
+	nwebExp.BrowserVersion = "Beta"
+	nwebExp.Labels = []string{"nweb", shared.ExperimentalLabel}
+	nwebExp.ResultsURL = strings.Replace(nweb.ResultsURL, "[stable]", "[experimental]", -1)
+
+
 	staticTestRuns := shared.TestRuns{
 		chrome,
 		chromeExp,
-		edge,
-		edgeExp,
 		firefox,
 		firefoxExp,
 		safari,
 		safariExp,
+		nweb,
+		nwebExp,
+		edge,
+		edgeExp,
 	}
 	labelRuns(staticTestRuns, "test", "static", shared.MasterLabel)
 
@@ -185,7 +200,7 @@ func main() {
 			labels := run.LabelsSet()
 			if labels.Contains(shared.StableLabel) {
 				stableRuns = append(stableRuns, run)
-			} else if labels.Contains("edge") || labels.Contains(shared.ExperimentalLabel) {
+			} else if labels.Contains("nweb") || labels.Contains(shared.ExperimentalLabel) {
 				defaultRuns = append(defaultRuns, run)
 			}
 		}
@@ -227,9 +242,9 @@ func main() {
 		filters.Labels = extraLabels.Union(mapset.NewSetWith(shared.BetaLabel))
 		copyProdRuns(store, filters)
 
-		log.Print("Adding latest aligned Edge stable and Chrome/Firefox/Safari experimental data...")
+		log.Print("Adding latest aligned Chrome/Firefox/Safari/Nweb experimental data...")
 		filters.Labels = extraLabels.Union(mapset.NewSet(shared.MasterLabel))
-		filters.Products, _ = shared.ParseProductSpecs("chrome[experimental]", "edge[stable]", "firefox[experimental]", "safari[experimental]")
+		filters.Products, _ = shared.ParseProductSpecs("chrome[experimental]", "firefox[experimental]", "safari[experimental]","nweb[experimental]")
 		copyProdRuns(store, filters)
 
 		log.Printf("Successfully copied a total of %v distinct TestRuns", seenTestRunIDs.Cardinality())

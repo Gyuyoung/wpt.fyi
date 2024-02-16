@@ -98,8 +98,8 @@ func (p ProductSpec) DisplayName() string {
 		return "macOS WebKit"
 	case "webkitgtk":
 		return "WebKitGTK"
-	case "openharmony":
-		return "OpenHarmony"
+	case "nweb":
+		return "Nweb"
 	default:
 		return p.BrowserName
 	}
