@@ -9,7 +9,7 @@ import (
 // A list of browsers that are shown on the homepage by default.
 // (Must be sorted alphabetically!)
 var defaultBrowsers = []string{
-	"chrome", "firefox", "safari", "nweb",
+	"chrome", "firefox", "nweb", "safari",
 }
 
 // An extra list of known browsers.

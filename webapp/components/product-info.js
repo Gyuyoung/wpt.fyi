@@ -6,9 +6,9 @@
 const DisplayNames = (() => {
   let m = new Map();
   ['chrome', 'chrome-experimental'].forEach(n => m.set(n, 'Chrome'));
-  ['edge', 'edge-experimental'].forEach(n => m.set(n, 'Edge'));
   ['firefox', 'firefox-experimental'].forEach(n => m.set(n, 'Firefox'));
   ['safari', 'safari-experimental'].forEach(n => m.set(n, 'Safari'));
+  ['nweb', 'nweb-experimental'].forEach(n => m.set(n, 'Nweb'));
   m.set('android_webview', 'WebView');
   m.set('chrome_android', 'ChromeAndroid');
   m.set('chromium', 'Chromium');
@@ -20,7 +20,7 @@ const DisplayNames = (() => {
   m.set('uc', 'UC Browser');
   m.set('wktr', 'macOS WebKit');
   m.set('webkitgtk', 'WebKitGTK');
-  m.set('nweb', 'Nweb');
+  m.set('edge', 'Edge');
   // Platforms
   m.set('android', 'Android');
   m.set('linux', 'Linux');
@@ -54,7 +54,7 @@ const AllBrowserNames = Object.freeze(['android_webview', 'chrome_android', 'chr
 // The list of default browsers used in cases where the user has not otherwise
 // chosen a set of browsers (e.g. which browsers to show runs for). Stored as
 // an ordered list so that the first entry can be used as a consistent default.
-const DefaultBrowserNames = Object.freeze(['chrome', 'edge', 'firefox', 'safari']);
+const DefaultBrowserNames = Object.freeze(['chrome', 'firefox', 'nweb', 'safari']);
 const DefaultProductSpecs = DefaultBrowserNames;
 
 // The above sets, encoded as product objects. This avoids repeatedly calling
