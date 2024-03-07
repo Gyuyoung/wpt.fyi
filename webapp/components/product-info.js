@@ -8,7 +8,7 @@ const DisplayNames = (() => {
   ['chrome', 'chrome-experimental'].forEach(n => m.set(n, 'Chrome'));
   ['firefox', 'firefox-experimental'].forEach(n => m.set(n, 'Firefox'));
   ['safari', 'safari-experimental'].forEach(n => m.set(n, 'Safari'));
-  ['nweb', 'nweb-experimental'].forEach(n => m.set(n, 'Nweb'));
+  ['huawei_browser', 'huawei_browser-experimental'].forEach(n => m.set(n, 'Huawei Browser'));
   m.set('android_webview', 'WebView');
   m.set('chrome_android', 'ChromeAndroid');
   m.set('chromium', 'Chromium');
@@ -49,12 +49,12 @@ const versionPatterns = Object.freeze({
 
 // The set of all browsers known to the wpt.fyi UI.
 const AllBrowserNames = Object.freeze(['android_webview', 'chrome_android', 'chrome',
-  'chromium', 'deno', 'edge', 'firefox_android', 'firefox', 'flow', 'node.js', 'nweb', 'safari', 'servo', 'webkitgtk', 'wktr']);
+  'chromium', 'deno', 'edge', 'firefox_android', 'firefox', 'flow', 'node.js', 'huawei_browser', 'safari', 'servo', 'webkitgtk', 'wktr']);
 
 // The list of default browsers used in cases where the user has not otherwise
 // chosen a set of browsers (e.g. which browsers to show runs for). Stored as
 // an ordered list so that the first entry can be used as a consistent default.
-const DefaultBrowserNames = Object.freeze(['chrome', 'firefox', 'nweb', 'safari']);
+const DefaultBrowserNames = Object.freeze(['chrome', 'firefox', 'huawei_browser', 'safari']);
 const DefaultProductSpecs = DefaultBrowserNames;
 
 // The above sets, encoded as product objects. This avoids repeatedly calling
@@ -183,7 +183,7 @@ const ProductInfo = (superClass) => class extends superClass {
       // although it would be better to have some variant of the Firefox logo.
       return '/static/geckoview_64x64.png';
 
-    } else if (name !== 'chromium' && name !== 'deno' && name !== 'flow' && name !== 'node.js' && name !== 'servo' && name !== 'wktr' && name !== 'nweb') {  // Products without per-channel logos.
+    } else if (name !== 'chromium' && name !== 'deno' && name !== 'flow' && name !== 'node.js' && name !== 'servo' && name !== 'wktr' && name !== 'huawei_browser') {  // Products without per-channel logos.
       let channel;
       const candidates = ['beta', 'dev', 'canary', 'nightly', 'preview'];
       for (const label of candidates) {
@@ -207,7 +207,7 @@ const ProductInfo = (superClass) => class extends superClass {
   }
 
   minorIsSignificant(browserName) {
-    return browserName === 'deno' || browserName === 'flow' || browserName === 'safari' || browserName === 'webkitgtk' || browserName === 'nweb';
+    return browserName === 'deno' || browserName === 'flow' || browserName === 'safari' || browserName === 'webkitgtk' || browserName === 'huawei_browser';
   }
 
   /**

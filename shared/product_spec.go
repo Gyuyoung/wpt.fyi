@@ -98,8 +98,8 @@ func (p ProductSpec) DisplayName() string {
 		return "macOS WebKit"
 	case "webkitgtk":
 		return "WebKitGTK"
-	case "nweb":
-		return "Nweb"
+	case "huawei_browser":
+		return "Huawei Browser"
 	default:
 		return p.BrowserName
 	}

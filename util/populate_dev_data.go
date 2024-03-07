@@ -116,17 +116,17 @@ func main() {
 	safariExp.Labels = []string{"safari", shared.ExperimentalLabel}
 	safariExp.ResultsURL = strings.Replace(safari.ResultsURL, "[stable]", "[experimental]", -1)
 
-	nweb := chrome
-	nweb.BrowserName = "nweb"
-	nweb.BrowserVersion = "Beta"
-	nweb.OSName = "openharmony"
-	nweb.OSName = "3.2.3"
-	nweb.ResultsURL = fmt.Sprintf(summaryURLFmtString, *localHost, staticRunSHA[:10], "nweb[stable]-summary_v2.json.gz")
-	nweb.Labels = []string{"nweb", shared.StableLabel}
-	nwebExp := nweb
-	nwebExp.BrowserVersion = "Beta"
-	nwebExp.Labels = []string{"nweb", shared.ExperimentalLabel}
-	nwebExp.ResultsURL = strings.Replace(nweb.ResultsURL, "[stable]", "[experimental]", -1)
+	huawei_browser := chrome
+	huawei_browser.BrowserName = "huawei_browser"
+	huawei_browser.BrowserVersion = "Beta"
+	huawei_browser.OSName = "openharmony"
+	huawei_browser.OSName = "3.2.3"
+	huawei_browser.ResultsURL = fmt.Sprintf(summaryURLFmtString, *localHost, staticRunSHA[:10], "huawei_browser[stable]-summary_v2.json.gz")
+	huawei_browser.Labels = []string{"huawei browser", shared.StableLabel}
+	huawei_browserExp := huawei_browser
+	huawei_browserExp.BrowserVersion = "Beta"
+	huawei_browserExp.Labels = []string{"huawei_browser", shared.ExperimentalLabel}
+	huawei_browserExp.ResultsURL = strings.Replace(huawei_browser.ResultsURL, "[stable]", "[experimental]", -1)
 
 
 	staticTestRuns := shared.TestRuns{
@@ -136,8 +136,8 @@ func main() {
 		firefoxExp,
 		safari,
 		safariExp,
-		nweb,
-		nwebExp,
+		huawei_browser,
+		huawei_browserExp,
 		edge,
 		edgeExp,
 	}
@@ -200,7 +200,7 @@ func main() {
 			labels := run.LabelsSet()
 			if labels.Contains(shared.StableLabel) {
 				stableRuns = append(stableRuns, run)
-			} else if labels.Contains("nweb") || labels.Contains(shared.ExperimentalLabel) {
+			} else if labels.Contains("huawei_browser") || labels.Contains(shared.ExperimentalLabel) {
 				defaultRuns = append(defaultRuns, run)
 			}
 		}
@@ -242,9 +242,9 @@ func main() {
 		filters.Labels = extraLabels.Union(mapset.NewSetWith(shared.BetaLabel))
 		copyProdRuns(store, filters)
 
-		log.Print("Adding latest aligned Chrome/Firefox/Safari/Nweb experimental data...")
+		log.Print("Adding latest aligned Chrome/Firefox/Safari/Huawei Browser experimental data...")
 		filters.Labels = extraLabels.Union(mapset.NewSet(shared.MasterLabel))
-		filters.Products, _ = shared.ParseProductSpecs("chrome[experimental]", "firefox[experimental]", "safari[experimental]","nweb[experimental]")
+		filters.Products, _ = shared.ParseProductSpecs("chrome[experimental]", "firefox[experimental]", "safari[experimental]","huawei_browser[experimental]")
 		copyProdRuns(store, filters)
 
 		log.Printf("Successfully copied a total of %v distinct TestRuns", seenTestRunIDs.Cardinality())
