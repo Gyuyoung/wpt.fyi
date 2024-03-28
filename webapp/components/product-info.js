@@ -54,7 +54,7 @@ const AllBrowserNames = Object.freeze(['android_webview', 'chrome_android', 'chr
 // The list of default browsers used in cases where the user has not otherwise
 // chosen a set of browsers (e.g. which browsers to show runs for). Stored as
 // an ordered list so that the first entry can be used as a consistent default.
-const DefaultBrowserNames = Object.freeze(['chrome', 'firefox', 'huawei_browser', 'safari']);
+const DefaultBrowserNames = Object.freeze(['chrome', 'chrome_android', 'firefox', 'huawei_browser', 'safari']);
 const DefaultProductSpecs = DefaultBrowserNames;
 
 // The above sets, encoded as product objects. This avoids repeatedly calling

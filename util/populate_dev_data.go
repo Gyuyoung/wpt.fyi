@@ -81,6 +81,27 @@ func main() {
 	chromeExp.Labels = []string{"chrome", shared.ExperimentalLabel}
 	chromeExp.ResultsURL = strings.Replace(chrome.ResultsURL, "[stable]", "[experimental]", -1)
 
+	chrome_android := shared.TestRun{
+		ProductAtRevision: shared.ProductAtRevision{
+			Product: shared.Product{
+				BrowserName:    "chrome_android",
+				BrowserVersion: "74.0",
+				OSName:         "android",
+				OSVersion:      "9",
+			},
+			FullRevisionHash: staticRunSHA,
+			Revision:         staticRunSHA[:10],
+		},
+		ResultsURL: fmt.Sprintf(summaryURLFmtString, *localHost, staticRunSHA[:10], "chrome_android[stable]-summary_v2.json.gz"),
+		CreatedAt:  staticDataTime,
+		TimeStart:  staticDataTime,
+		Labels:     []string{"chrome_android", shared.StableLabel},
+	}
+	chrome_androidExp := chrome
+	chrome_androidExp.BrowserVersion = "76.0"
+	chrome_androidExp.Labels = []string{"chrome", shared.ExperimentalLabel}
+	chrome_androidExp.ResultsURL = strings.Replace(chrome_android.ResultsURL, "[stable]", "[experimental]", -1)
+
 	edge := chrome
 	edge.BrowserName = "edge"
 	edge.BrowserVersion = "18"
@@ -132,6 +153,8 @@ func main() {
 	staticTestRuns := shared.TestRuns{
 		chrome,
 		chromeExp,
+		chrome_android,
+		chrome_androidExp,
 		firefox,
 		firefoxExp,
 		safari,
@@ -242,9 +265,9 @@ func main() {
 		filters.Labels = extraLabels.Union(mapset.NewSetWith(shared.BetaLabel))
 		copyProdRuns(store, filters)
 
-		log.Print("Adding latest aligned Chrome/Firefox/Safari/Huawei Browser experimental data...")
+		log.Print("Adding latest aligned Chrome/Chrome Android/Firefox/Safari/Huawei Browser experimental data...")
 		filters.Labels = extraLabels.Union(mapset.NewSet(shared.MasterLabel))
-		filters.Products, _ = shared.ParseProductSpecs("chrome[experimental]", "firefox[experimental]", "safari[experimental]","huawei_browser[experimental]")
+		filters.Products, _ = shared.ParseProductSpecs("chrome[experimental]", "chrome_android[experimental]", "firefox[experimental]", "safari[experimental]","huawei_browser[experimental]")
 		copyProdRuns(store, filters)
 
 		log.Printf("Successfully copied a total of %v distinct TestRuns", seenTestRunIDs.Cardinality())
